@@ -11,7 +11,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(function(){
-    const socketio = io('http://192.168.1.3:3000');
+    const socketio = io('https://chatbackend-cdp3.onrender.com');
     socket = socketio;
     let name = localStorage.getItem("name")
     let roomid = localStorage.getItem("roomid")
@@ -60,7 +60,7 @@ function App() {
   function createroom(){
     let roomid = parseInt(Math.random()*10000+1000)
     let input = document.querySelector("#createusername");
-    axios.post("http://192.168.1.3:3000/chat",{
+    axios.post("https://chatbackend-cdp3.onrender.com/chat",{
       "event":"createroom",
       "username":input.value,
       "room":roomid
@@ -81,7 +81,7 @@ function App() {
   function joinroom(){
     let input = document.querySelector("#joinroomid")
     let input1 = document.querySelector("#joinusername")
-    axios.post("http://192.168.1.3:3000/chat",{
+    axios.post("https://chatbackend-cdp3.onrender.com/chat",{
       "event":"joinroom",
       "room":input.value,
       "name":input1.value,
@@ -100,7 +100,7 @@ function App() {
   }
 
   function autojoin(room,name){
-    axios.post("http://192.168.1.3:3000/chat",{
+    axios.post("https://chatbackend-cdp3.onrender.com/chat",{
       "event":"joinroom",
       "room":room,
       "name":name,
