@@ -11,7 +11,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(function(){
-    const socketio = io('https://chatbackend-cdp3.onrender.com');
+    const socketio = io('https://chatbackend-three.vercel.app');
     socket = socketio;
     let name = localStorage.getItem("name")
     let roomid = localStorage.getItem("roomid")
@@ -60,7 +60,7 @@ function App() {
   function createroom(){
     let roomid = parseInt(Math.random()*10000+1000)
     let input = document.querySelector("#createusername");
-    axios.post("https://chatbackend-cdp3.onrender.com/chat",{
+    axios.post("https://chatbackend-three.vercel.app/chat",{
       "event":"createroom",
       "username":input.value,
       "room":roomid
@@ -81,7 +81,7 @@ function App() {
   function joinroom(){
     let input = document.querySelector("#joinroomid")
     let input1 = document.querySelector("#joinusername")
-    axios.post("https://chatbackend-cdp3.onrender.com/chat",{
+    axios.post("https://chatbackend-three.vercel.app/chat",{
       "event":"joinroom",
       "room":input.value,
       "name":input1.value,
@@ -100,7 +100,7 @@ function App() {
   }
 
   function autojoin(room,name){
-    axios.post("https://chatbackend-cdp3.onrender.com/chat",{
+    axios.post("https://chatbackend-three.vercel.app/chat",{
       "event":"joinroom",
       "room":room,
       "name":name,
