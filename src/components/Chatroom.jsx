@@ -58,7 +58,7 @@ function RenderChatRoom(){
     
     if(socket){
         socket.on("chat",function(msg){
-        setMessages([...messagelist,{name:msg.name,value:msg.value}])
+        setMessages((messages)=>[...messages,{name:msg.name,value:msg.value}])
         console.log(msg)
     })
   }
