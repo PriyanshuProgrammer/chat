@@ -100,7 +100,7 @@ function RenderJoinRoomView(){
           label="Room ID"
           variant="outlined"
           margin="normal"
-          
+          value={roomidvalue}
           onChange={(e) => setRoomId(e.target.value)}
           />
         <Button 

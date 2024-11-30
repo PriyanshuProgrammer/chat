@@ -16,7 +16,7 @@ import {
   } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {roomId, username, view} from '../store/atoms'
 import axios from 'axios'
 import {Socket} from '../store/socket'
@@ -38,32 +38,23 @@ const darkTheme = createTheme({
   
 function RenderCreateRoomView(){
     const setView = useSetRecoilState(view)
-    const [Usernamevalue,setUsername]= useRecoilState(username)
     const socket = useContext(Socket)
     const setroomid = useSetRecoilState(roomId)
+    const roomIdvalue = useRecoilValue(roomId)
 
     function handleCreateRoom(){
-      if(Usernamevalue.trim() == ""){
-        alert("Enter valid name!!!") 
-      }else{
-
         let roomid = parseInt(Math.random()*10000+1000)
         setroomid(roomid)
         axios.post("https://chatbackend-cdp3.onrender.com/chat",{
           "event":"createroom",
-          "username":Usernamevalue,
+          "username":"User",
           "room":roomid
         }).then(function(res){
           if(res.data=="Room already exist")
             handleCreateRoom()
-          else{
-            socket.emit("joinroom",roomid);
-            setView("chatroom")
-          }
         }).catch(function(err){
           console.log(err)
         })
-      }
     }
 
     return (<Box 
@@ -89,13 +80,9 @@ function RenderCreateRoomView(){
           <Typography variant="h5" gutterBottom>
             Create a Room
           </Typography>
-          <TextField
-            fullWidth
-            label="Username"
-            variant="outlined"
-            margin="normal"
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <Typography variant="h6" sx={{ flexGrow: 1, ml: 2 }}>
+            Room: {roomIdvalue}
+          </Typography>
           <Button 
             fullWidth 
             variant="contained" 
