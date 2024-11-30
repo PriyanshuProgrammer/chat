@@ -57,8 +57,8 @@ function RenderCreateRoomView(){
           if(res.data=="Room already exist")
             handleCreateRoom()
           else{
-            alert("Join on Roomid: " + roomid)
-            setView("join")
+            socket.emit("joinroom",roomid);
+            setView("chatroom")
           }
         }).catch(function(err){
           console.log(err)
