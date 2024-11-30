@@ -1,4 +1,4 @@
-import React, { useEffect, useInsertionEffect, useState } from 'react';
+import React, { useContext, useEffect, useInsertionEffect, useState } from 'react';
 import RenderHomeView from './components/Home'
 import RenderJoinRoomView from './components/Join';
 import { 
@@ -10,7 +10,7 @@ import {
 
 } from '@mui/material';
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
-import { view } from './store/atoms';
+import { messages, view } from './store/atoms';
 import {Socket} from './store/socket'
 import RenderCreateRoomView from './components/Create';
 import RenderChatRoom from './components/Chatroom';
@@ -34,23 +34,31 @@ const darkTheme = createTheme({
 function App(){
   const [socket, setsocket] = useState();
   useEffect(function(){
-    const socketserver = io("https://chatbackend-cdp3.onrender.com")
+    const socketserver = io("http://localhost:3000")
     setsocket(socketserver)
     return ()=>{
       socketserver.disconnect()
     }
   },[])
+  
   return (
     <Socket.Provider value={socket}>
       <RecoilRoot>
         <Chatapp></Chatapp>
+        
       </RecoilRoot>
     </Socket.Provider>
   );
 };
 
 function Chatapp(){
-  
+  const socket = useContext(Socket)
+  const setMessages = useSetRecoilState(messages)
+  if(socket){
+    socket.on("chat",function(msg){
+        setMessages(messages=>[...messages,{name:msg.name,value:msg.value}])
+    })
+  }
   const viewval = useRecoilValue(view)
   return (
   <ThemeProvider theme={darkTheme}>

@@ -21,3 +21,8 @@ export const messages = atom({
     default:[]
 })
 
+export const hitclient = atom({
+    key:"hitclient",
+    default:0
+})
+

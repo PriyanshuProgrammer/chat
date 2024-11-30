@@ -17,7 +17,7 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {messages, roomId, username, view} from '../store/atoms'
+import {hitclient, messages, roomId, username, view} from '../store/atoms'
 import {useState} from 'react'
 import {Socket} from '../store/socket'
 import { useContext } from 'react';
@@ -44,23 +44,18 @@ function RenderChatRoom(){
   const usernamevalue = useRecoilValue(username)
   const setView = useSetRecoilState(view)
   const socket = useContext(Socket)
-  
+  const sethitclient = useSetRecoilState(hitclient)
+
   function handleSendMessage(){
-      socket.emit("chat",{
-          room:roomIdvalue,
-          msg:{
-              name:usernamevalue,
+    sethitclient(value => value+1)
+    socket.emit("chat",{
+      room:roomIdvalue,
+      msg:{
+        name:usernamevalue,
               value:currentMessage,
             }
-        })
-        setCurrentMessage("")
-    }
-    
-    if(socket){
-        socket.on("chat",function(msg){
-        setMessages([...messagelist,{name:msg.name,value:msg.value}])
-        console.log(msg)
-    })
+          })
+    setCurrentMessage("")
   }
 
   return (
