@@ -46,7 +46,7 @@ function RenderJoinRoomView(){
     const socket = useContext(Socket)
 
     function handleJoinRoom(){
-        axios.post("http://localhost:3000/chat",{
+        axios.post("https://chatbackend-cdp3.onrender.com/chat",{
           "event":"joinroom",
           "room":roomidvalue,
           "name":usernamevalue,

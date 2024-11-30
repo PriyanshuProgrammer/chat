@@ -34,7 +34,7 @@ const darkTheme = createTheme({
 function App(){
   const [socket, setsocket] = useState();
   useEffect(function(){
-    const socketserver = io("http://localhost:3000")
+    const socketserver = io("https://chatbackend-cdp3.onrender.com")
     setsocket(socketserver)
     return ()=>{
       socketserver.disconnect()
