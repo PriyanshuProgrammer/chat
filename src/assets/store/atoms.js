@@ -6,7 +6,7 @@ export  const server = atom({
     default:selector({
         key:"serverjoin",
         get:async ({get})=>{
-            const connection = await fetch("http://localhost:3000")
+            const connection = await fetch("https://chatbackend-cdp3.onrender.com")
             return connection.json()
         }
     })
