@@ -13,7 +13,7 @@ const App = () => {
   const [isJoined, setIsJoined] = useState(false);
   const [socket, setsocket] = useState()
   useEffect(function(){
-    const socketserver = io("http://localhost:3000")
+    const socketserver = io("https://chatbackend-cdp3.onrender.com")
     setsocket(socketserver)
   },[])
   
